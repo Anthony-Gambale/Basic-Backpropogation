@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
 for x in data:
-	x[1] += 500
+    x[1] += 500
 
 # init the network
 eta = 0.0003
@@ -18,7 +18,7 @@ print("The initial error, when all parameters are set to 0, is " + str(testnet.a
 input("Press [Enter] to begin training.")
 
 # train the network
-testnet.train(100000, data)
+testnet.train(110000, data, True, 0.1)
 
 # display the weight and bias after training
 print()
