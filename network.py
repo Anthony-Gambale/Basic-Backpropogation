@@ -19,24 +19,24 @@ class Network():
 
 
 	def guess(self, x):
-		# x is the input, return the output
+		''' x is the input, return the output '''
 		return self.weight * x + self.bias
 
 
 	def cost(self, x, y):
-		# return the cost related to an x input value and y expected output value
-		# square it to force positive
+		''' return the cost related to an x input value and y expected output value
+		square it to force positive '''
 		return (y - self.guess(x))**2
 
 
 	def cost_derivatives(self, x, y):
-		# find the derivative of the cost for the weight and the bias, and return both
-		# dCost / dw = dCost / dGuess * dGuess / dw
-		# dCost / dGuess = 2 * (guess - y)
-		# dGuess / dw = x
-		# dCost / db = dCost / dGuess * dGuess / db
-		# dCost / dGuess = 2 * (guess - y)
-		# dGuess / dw = 1
+		''' find the derivative of the cost for the weight and the bias, and return both
+		dCost / dw = dCost / dGuess * dGuess / dw
+		dCost / dGuess = 2 * (guess - y)
+		dGuess / dw = x
+		dCost / db = dCost / dGuess * dGuess / db
+		dCost / dGuess = 2 * (guess - y)
+		dGuess / dw = 1'''
 		dC_dg = 2*(self.guess(x) - y) # cost / guess
 		dg_dw = x # guess / weight
 		dg_db = 1 # guess / bias
@@ -46,8 +46,8 @@ class Network():
 
 
 	def backprop_step(self, data):
-		# increment my gradient based on all the x and y values in the data
-		# data looks like [[x,y], [x,y], [x,y], [x,y] ... ]
+		''' increment my gradient based on all the x and y values in the data
+		data looks like [[x,y], [x,y], [x,y], [x,y] ... ] '''
 		N = len(data)
 		average_dC_dw = 0
 		average_dC_db = 0
@@ -63,13 +63,10 @@ class Network():
 
 
 	def train(self, iterations, data):
-		# do 'iterations' number of backprop steps
-		#for i in range(iterations):
-		#	self.backprop_step(data)
 		
-		# find the average x and y values of the data
-		x = data[20][0] # a random point
-		y = data[20][1]
+		# pick a random x and y value to use for calculating a rough estimate of error
+		x = data[0][0] # the first one in the list (the list is not sorted)
+		y = data[0][1]
 
 		while self.cost(x,y) > 400:
 			self.backprop_step(data)
