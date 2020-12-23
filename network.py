@@ -38,7 +38,7 @@ class Network():
 		# dCost / db = dCost / dGuess * dGuess / db
 		# dCost / dGuess = 2 * (guess - y)
 		# dGuess / dw = 1
-		dC_dg = 2*(y - self.guess(x)) # cost / guess
+		dC_dg = 2*(self.guess(x) - y) # cost / guess
 		dg_dw = x # guess / weight
 		dg_db = 1 # guess / bias
 		dC_dw = dC_dg * dg_dw # cost / weight
@@ -50,22 +50,20 @@ class Network():
 		# increment my gradient based on all the x and y values in the data
 		# data looks like [[x,y], [x,y], [x,y], [x,y] ... ]
 		N = len(data)
-		average_dC_dw
-		average_dC_db
+		average_dC_dw = 0
+		average_dC_db = 0
 
 		for pair in data:
 			[x, y] = pair
 			dC_dw, dC_db = self.cost_derivatives(x, y)
-			average_dC_dw += dC_dw / N
-			average_dC_db += dC_db / N
+			average_dC_dw -= dC_dw / N
+			average_dC_db -= dC_db / N
 
-		self.weight -= self.eta * average_dC_dw
-		self.bias -= self.eta * average_dC_db
+		self.weight += self.eta * average_dC_dw
+		self.bias += self.eta * average_dC_db
 
 
 	def train(self, iterations, data):
 		# do 'iterations' number of backprop steps
-		for i in iterations:
+		for i in range(iterations):
 			self.backprop_step(data)
-
-
