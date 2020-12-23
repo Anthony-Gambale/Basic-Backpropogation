@@ -11,7 +11,6 @@ class Network():
 	The input will be a single number, and the output will be a single number.
 	'''
 
-
 	def __init__(self, w, b, e):
 		# initialise the weight and bias
 		self.weight = w
@@ -65,5 +64,13 @@ class Network():
 
 	def train(self, iterations, data):
 		# do 'iterations' number of backprop steps
-		for i in range(iterations):
+		#for i in range(iterations):
+		#	self.backprop_step(data)
+		
+		# find the average x and y values of the data
+		x = data[20][0] # a random point
+		y = data[20][1]
+
+		while self.cost(x,y) > 400:
 			self.backprop_step(data)
+			print(self.cost(x,y))
