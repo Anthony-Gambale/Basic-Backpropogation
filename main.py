@@ -8,41 +8,38 @@ from time import time
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
 for point in data:
-    point[0] -= 50
+    point[1] += 500
 
 # init the network
 eta = 0.0003
 testnet = Network(0, 0, eta)
 
-# the initial error
-print("The initial error, when all parameters are set to 0, is " + str(testnet.average_cost(data)))
-input("Press [Enter] to begin training.")
-
 # initial time
 t_initial = time()
 
 # train the network
-testnet.train(1000, data, True, 0.1)
+testnet.train(100000, data, True, 0.1) # I have found that 0.1 is the sweet spot. lower percentages give worse estimates with similar time, and higher percentages give similar estimates with worse time.
 
 # final time
 t_final = time()
 
 # tell the user how long it took
-print("Training took " + str((t_final-t_initial)/60)+" minutes.")
+print("Training took " + str( round( (t_final-t_initial)/60, 3) )+" minutes.")
 
 # display the weight and bias after training
 print()
 print("y = "+str(testnet.weight)+" x + "+str(testnet.bias))
-print("The finishing error is " + str(testnet.average_cost(data)))
 
 # make an x and y axis for the points
 x_list = [x for x,y in data]
 y_list = [y for x,y in data]
 
 # make an x and y axis for the line
-xa = np.linspace(min(x_list), max(x_list), max(x_list)-min(x_list))
+xa = np.linspace(0, len(data), 100)
 ya = xa * testnet.weight + testnet.bias
-print(xa)
+
+# make sure to display the 0,0 origin
+plt.plot(0, 0)
 
 # plot it all
 plt.scatter(x_list, y_list, color="blue")
