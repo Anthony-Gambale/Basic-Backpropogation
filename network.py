@@ -78,6 +78,10 @@ class Network():
 		for i in range(iterations):
 			self.backprop_step(data)
 			print(self.cost(x_c, y_c))
+		# let the user know that it has changed over
+		print()
+		print("The first "+str(iterations)+" iterations are over. Press [Enter] to continue.")
+		input()
 		# now, keep iterating till the error (of the mean point) is below 1000
 		while self.cost(x_c, y_c) > 1000:
 			self.backprop_step(data)

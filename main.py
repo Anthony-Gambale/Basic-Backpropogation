@@ -7,10 +7,10 @@ from matplotlib import pyplot as plt
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
 for x in data:
-	x[1] += 500
+	x[1] -= 100
 
 # init the network
-eta = 0.0001
+eta = 0.00035
 testnet = Network(0, 0, eta)
 
 # train the network
@@ -36,4 +36,5 @@ plt.scatter(x_list, y_list, color="blue")
 plt.plot(xa, ya, color="red")
 plt.scatter(x_c, y_c, color="black", marker="o")
 plt.scatter(x_c, y_c, color="yellow", marker="X")
+plt.plot(0, 0, color="black")
 plt.show()
