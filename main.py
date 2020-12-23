@@ -1,6 +1,6 @@
 
 
-from network import *
+from network import Network
 import numpy as np
 from matplotlib import pyplot as plt
 
