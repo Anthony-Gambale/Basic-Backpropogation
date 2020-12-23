@@ -1,6 +1,8 @@
 
 
 from math import exp
+import numpy as np
+from matplotlib import pyplot as plt
 
 
 class Network():
@@ -26,7 +28,7 @@ class Network():
 	def cost(self, x, y):
 		''' return the cost related to an x input value and y expected output value
 		square it to force positive '''
-		return (y - self.guess(x))**2
+		return (y - self.guess(x))**4
 
 
 	def cost_derivatives(self, x, y):
@@ -65,9 +67,18 @@ class Network():
 	def train(self, iterations, data):
 		
 		# pick a random x and y value to use for calculating a rough estimate of error
-		x = data[0][0] # the first one in the list (the list is not sorted)
-		y = data[0][1]
-
-		while self.cost(x,y) > 400:
+		x_list = [a[0] for a in data]
+		y_list = [a[1] for a in data]
+		
+		x_c = (max(x_list) + min(x_list)) / 2
+		y_c = (max(y_list) + min(y_list)) / 2
+		print(x_c, y_c)
+		
+		# first, do a minimum number of iterations equal to 'iterations'
+		for i in range(iterations):
 			self.backprop_step(data)
-			print(self.cost(x,y))
+			print(self.cost(x_c, y_c))
+		# now, keep iterating till the error (of the mean point) is below 1000
+		while self.cost(x_c, y_c) > 1000:
+			self.backprop_step(data)
+			print(self.cost(x_c, y_c))
