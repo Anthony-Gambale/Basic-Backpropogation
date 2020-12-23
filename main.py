@@ -7,8 +7,9 @@ from time import time
 
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
-for x in data:
-    x[1] += -100
+for x, y in data:
+    y *= 0.1
+    y += -100
 
 # init the network
 eta = 0.0003
@@ -22,7 +23,7 @@ input("Press [Enter] to begin training.")
 t_initial = time()
 
 # train the network
-testnet.train(200000, data, True, 0.1)
+testnet.train(10, data, True, 0.5)
 
 # final time
 t_final = time()
@@ -40,11 +41,19 @@ x_list = [a[0] for a in data]
 y_list = [a[1] for a in data]
 
 # make an x and y axis for the line
-xa = np.linspace(0, 100, len(data))
+xa = np.linspace(0, 100, 100)
 ya = xa * testnet.weight + testnet.bias
+
+# make a black line for the y axis and a black line for the x axis to force the window to be a certain size
+xx = np.linspace(-50, 150, 100)
+yx = xa * 0
+
+yy = np.linspace(-50, 150, 100)
+xy = yy * 0
 
 # plot it all
 plt.scatter(x_list, y_list, color="blue")
 plt.plot(xa, ya, color="red")
-plt.plot(0, 0, color="black")
+plt.plot(xx, yx, color="black", linestyle="--")
+plt.plot(xy, yy, color="black", linestyle="--")
 plt.show()
