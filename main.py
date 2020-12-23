@@ -3,6 +3,7 @@
 from network import Network
 import numpy as np
 from matplotlib import pyplot as plt
+from time import time
 
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
@@ -17,8 +18,17 @@ testnet = Network(0, 0, eta)
 print("The initial error, when all parameters are set to 0, is " + str(testnet.average_cost(data)))
 input("Press [Enter] to begin training.")
 
+# initial time
+t_initial = time()
+
 # train the network
-testnet.train(110000, data, True, 0.1)
+testnet.train(200000, data, True, 0.1)
+
+# final time
+t_final = time()
+
+# tell the user how long it took
+print("Training took " + str((t_final-t_initial)/60)+" minutes.")
 
 # display the weight and bias after training
 print()
