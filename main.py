@@ -8,7 +8,7 @@ from time import time
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
 for x in data:
-    x[1] += 500
+    x[1] += -100
 
 # init the network
 eta = 0.0003
