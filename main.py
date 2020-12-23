@@ -1,6 +1,6 @@
 
 
-from network import Network
+from network import *
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -27,9 +27,7 @@ y = [a[1] for a in data]
 xa = np.linspace(0, 100, len(data))
 ya = xa * testnet.weight + testnet.bias
 
-'''
 # plot it all
 plt.scatter(x, y, color="blue")
 plt.plot(xa, ya, color="red")
 plt.show()
-'''
