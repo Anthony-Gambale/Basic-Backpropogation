@@ -38,6 +38,10 @@ y_list = [y for x,y in data]
 xa = np.linspace(0, len(data), 100)
 ya = xa * testnet.weight + testnet.bias
 
+# find the farthese in the x and y direction that the line goes and make sure the whole plot stretches to fit
+f = max(xa[-1], ya[-1])
+plt.plot(f, f)
+
 # make sure to display the 0,0 origin
 plt.plot(0, 0)
 
