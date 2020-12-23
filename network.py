@@ -31,14 +31,25 @@ class Network():
 		return (y - self.guess(x))**4
 
 
+	def average_cost(self, data):
+		''' return the average of the costs of each datapoint '''
+		average = 0
+		number = len(data)
+		for x, y in data:
+			average += self.cost(x, y) / number
+		return average
+
+
 	def cost_derivatives(self, x, y):
-		''' find the derivative of the cost for the weight and the bias, and return both
+		'''
+		find the derivative of the cost for the weight and the bias, and return both
 		dCost / dw = dCost / dGuess * dGuess / dw
 		dCost / dGuess = 2 * (guess - y)
 		dGuess / dw = x
 		dCost / db = dCost / dGuess * dGuess / db
 		dCost / dGuess = 2 * (guess - y)
-		dGuess / dw = 1'''
+		dGuess / dw = 1
+		'''
 		dC_dg = 2*(self.guess(x) - y) # cost / guess
 		dg_dw = x # guess / weight
 		dg_db = 1 # guess / bias
@@ -48,8 +59,10 @@ class Network():
 
 
 	def backprop_step(self, data):
-		''' increment my gradient based on all the x and y values in the data
-		data looks like [[x,y], [x,y], [x,y], [x,y] ... ] '''
+		'''
+		increment my gradient based on all the x and y values in the data
+		data looks like [[x,y], [x,y], [x,y], [x,y] ... ]
+		'''
 		N = len(data)
 		average_dC_dw = 0
 		average_dC_db = 0
@@ -66,23 +79,7 @@ class Network():
 
 	def train(self, iterations, data):
 		
-		# pick a random x and y value to use for calculating a rough estimate of error
-		x_list = [a[0] for a in data]
-		y_list = [a[1] for a in data]
-		
-		x_c = (max(x_list) + min(x_list)) / 2
-		y_c = (max(y_list) + min(y_list)) / 2
-		print(x_c, y_c)
-		
 		# first, do a minimum number of iterations equal to 'iterations'
 		for i in range(iterations):
 			self.backprop_step(data)
-			print(self.cost(x_c, y_c))
-		# let the user know that it has changed over
-		print()
-		print("The first "+str(iterations)+" iterations are over. Press [Enter] to continue.")
-		input()
-		# now, keep iterating till the error (of the mean point) is below 1000
-		while self.cost(x_c, y_c) > 1000:
-			self.backprop_step(data)
-			print(self.cost(x_c, y_c))
+			print(i)
