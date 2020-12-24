@@ -29,7 +29,7 @@ class Network():
     def cost(self, x, y):
         ''' return the cost related to an x input value and y expected output value
         square it to force positive '''
-        return (y - self.guess(x))**4
+        return (y - self.guess(x))**2
 
 
     def average_cost(self, data):
@@ -70,11 +70,11 @@ class Network():
         
         for x, y in points:
             dC_dw, dC_db = self.cost_derivatives(x, y)
-            average_dC_dw -= dC_dw / N
-            average_dC_db -= dC_db / N
+            average_dC_dw += dC_dw / N
+            average_dC_db += dC_db / N
 
-        self.weight += self.eta * average_dC_dw
-        self.bias += self.eta * average_dC_db
+        self.weight -= self.eta * average_dC_dw
+        self.bias -= self.eta * average_dC_db
 
 
     def backprop_step_stochastic(self, data, stochastic_percentage):

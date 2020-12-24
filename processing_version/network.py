@@ -3,6 +3,12 @@
 This is very similar to the original network.py, but with less detail.
 '''
 
+def choose(l):
+    '''return a randomly chosen element from the array l'''
+    index = int(random(0, int(len(l))))
+    return l[index]
+    
+
 class Network:
     
     
@@ -53,6 +59,31 @@ class Network:
         go through each of these, find the derivatives dC/dw and dC/db for each of these
         points, and average them'''
         
-        N = 
+        N = len(points) # number of datapoints
+        M = int(ceil(N * stochastic_percentage)) # number of stochastic datapoints
         
+        M_points = [] # add M points into an array
+        for i in range(int(M)): M_points.append(choose(points))
+        
+        average_dC_dw = 0
+        average_dC_db = 0
+        
+        for x,y in M_points:
+            dC_dw, dC_db = self.cost_derivatives(x,y)
+            average_dC_dw += dC_dw / M
+            average_dC_db += dC_db / M
+        
+        self.w -= self.eta * average_dC_dw
+        self.b -= self.eta * average_dC_db
+    
+    
+    def display(self):
+        '''draw a line with my weight and bias in red'''
+        x1 = -300
+        x2 = 300
+        y1 = self.guess(x1)
+        y2 = self.guess(x2)
+        stroke(0, 255, 255)
+        strokeWeight(2)
+        line(x1, y1, x2, y2)
         
