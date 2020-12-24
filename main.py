@@ -16,7 +16,7 @@ from time import time
 # read the points from the csv
 data = np.genfromtxt('data.csv', delimiter=',')
 for point in data:
-    point[1] *= 0.1
+    point[1] *= 1.5
 
 # init the network
 eta = 0.0003
@@ -26,7 +26,7 @@ testnet = Network(0, 0, eta)
 t_initial = time()
 
 # train the network
-testnet.train(100000, data, True, 0.1) # I have found that 0.1 is the sweet spot. lower percentages give worse estimates with similar time, and higher percentages give similar estimates with worse time.
+testnet.train(10000, data, True, 0.1) # I have found that 0.1 is the sweet spot. lower percentages give worse estimates with similar time, and higher percentages give similar estimates with worse time.
 
 # final time
 t_final = time()

@@ -121,7 +121,7 @@ n = Network(eta)
 
 # percentage for SGD
 global stochastic_percentage
-stochastic_percentage = 0.6
+stochastic_percentage = 1.1
 
 # number of iterations
 global font_size

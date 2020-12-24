@@ -74,7 +74,7 @@ class Network():
             average_dC_db += dC_db / N
 
         self.weight -= self.eta * average_dC_dw
-        self.bias -= self.eta * average_dC_db
+        self.bias -= self.eta * average_dC_db * 100 # the bias needs a higher learning rate, it updates too slowly
 
 
     def backprop_step_stochastic(self, data, stochastic_percentage):
