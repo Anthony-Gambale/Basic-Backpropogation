@@ -22,7 +22,7 @@ class Network:
     def guess(self, x):
         '''x is used for inputs, and y is used for expected outputs. inputs and outputs to this network
         are both single numbers.'''
-        return self.w * x + self.b
+        return (self.w * x) + self.b
     
     
     # cost() and average_cost() functions are not needed
@@ -73,8 +73,9 @@ class Network:
             average_dC_dw += dC_dw / M
             average_dC_db += dC_db / M
         
-        self.w -= self.eta * average_dC_dw
-        self.b -= self.eta * average_dC_db
+        self.w -= self.eta * average_dC_dw * float(mouseY)/float(height)
+        self.b -= self.eta * average_dC_db * 10000 * float(mouseY)/float(height) # larger learning rate works better for constant
+        #print(self.w, self.b)
     
     
     def display(self):
@@ -83,7 +84,11 @@ class Network:
         x2 = 300
         y1 = self.guess(x1)
         y2 = self.guess(x2)
-        stroke(0, 255, 255)
+        #stroke(0, 255, 255)
+        r = 255 * float(mouseY)/float(height)
+        g = 255-r
+        b = 255-r
+        stroke(r, g, b)
         strokeWeight(2)
         line(x1, y1, x2, y2)
         
