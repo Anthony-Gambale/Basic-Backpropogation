@@ -1,5 +1,13 @@
 
 
+"""
+Basic-Backpropogation
+
+Anthony Gambale December 2020
+
+Uses gradient descent methods to perform backpropogation on the simplest, 2-parameter neural network (i.e. a linear function).
+"""
+
 from network import Network
 import numpy as np
 from matplotlib import pyplot as plt
