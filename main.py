@@ -26,7 +26,7 @@ testnet = Network(0, 0, eta)
 t_initial = time()
 
 # train the network
-testnet.train(10000, data, True, 0.1) # I have found that 0.1 is the sweet spot. lower percentages give worse estimates with similar time, and higher percentages give similar estimates with worse time.
+testnet.train(10000, data, True, 0.1) # I have found that 0.1 is the sweet spot for SGD. lower percentages give worse estimates with similar time, and higher percentages give similar estimates with worse time.
 
 # final time
 t_final = time()
